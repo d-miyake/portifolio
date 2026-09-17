@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio | Eduarda Megumi Miyake (Duda)</title>
+
+    <!-- Fontes do Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@700&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           VARIÁVEIS DE CORES E ESTILO
+           ========================================= */
+        :root {
+            --primary-blue: #1D4ED8;
+            --dark-blue-text: #1e3a8a; /* Azul escuro para leitura perfeita */
+            --primary-dark-blue: #0f2b5c;
+            --secondary-black: #0f172a;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --court-line: #cbd5e1;
+            --court-bg: #f8fafc;
+            --shadow-color: #0f172a;
+            --tape-color: rgba(226, 232, 240, 0.85);
+
+            --font-title: 'Bebas Neue', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+            --font-hand: 'Caveat', cursive;
+        }
+
+        /* Modo Escuro Corrigido */
+        [data-theme="dark"] {
+            --primary-blue: #2563eb;
+            --dark-blue-text: #1e3a8a; /* Mantém azul escuro legível em cards claros */
+            --primary-dark-blue: #1d4ed8;
+            --secondary-black: #f8fafc;
+            --bg-card: #ffffff; /* Card claro para destacar o texto azul escuro */
+            --text-main: #0f172a;
+            --court-line: #334155;
+            --court-bg: #0b1329;
+            --shadow-color: #2563eb;
+            --tape-color: rgba(51, 65, 85, 0.85);
+        }
+
+        /* RESET BÁSICO */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-main);
+            background-color: var(--court-bg);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* =========================================
+           FUNDO DE QUADRA DE VÔLEI DESFOCADO
+           ========================================= */
+        .court-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -10;
+            background-color: var(--court-bg);
+            background-image: 
+                linear-gradient(to right, var(--court-line) 3px, transparent 3px),
+                linear-gradient(to bottom, var(--court-line) 3px, transparent 3px),
+                linear-gradient(0deg, transparent 48%, var(--court-line) 48%, var(--court-line) 52%, transparent 52%);
+            background-size: 70px 70px, 70px 70px, 100% 100%;
+            filter: blur(3px);
+            opacity: 0.65;
+            transform: scale(1.05);
+        }
+
+        /* =========================================
+           BARRA DE NAVEGAÇÃO
+           ========================================= */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--bg-card);
+            border-bottom: 3px solid var(--secondary-black);
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 0px var(--shadow-color);
+        }
+
+        .logo-tag {
+            background: var(--primary-blue);
+            color: #fff;
+            font-family: var(--font-title);
+            font-size: 1.4rem;
+            padding: 4px 12px;
+            border: 2px solid var(--secondary-black);
+            border-radius: 6px;
+            box-shadow: 2px 2px 0px var(--secondary-black);
+            transform: rotate(-1.5deg);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-blue);
+        }
+
+        .btn-pill {
+            background-color: var(--secondary-black);
+            color: var(--bg-card);
+            padding: 8px 20px;
+            border-radius: 50px;
+            border: 2px solid var(--secondary-black);
+            font-family: var(--font-title);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 3px 3px 0px var(--primary-blue);
+        }
+
+        .btn-pill:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 5px 5px 0px var(--primary-blue);
+        }
+
+        /* =========================================
+           ADESIVOS E ESTRELAS (INSPIRADAS NAS IMAGENS 2 E 3)
+           ========================================= */
+        .sticker {
+            position: absolute;
+            z-index: 5;
+            pointer-events: none;
+            user-select: none;
+            filter: drop-shadow(2px 3px 0px rgba(0,0,0,0.2));
+        }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(6deg); }
+        }
+
+        @keyframes pulseStar {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.15) rotate(-8deg); }
+        }
+
+        @keyframes spinSlow {
+            100% { transform: rotate(360deg); }
+        }
+
+        .anim-float-1 { animation: floatSlow 4s ease-in-out infinite; }
+        .anim-pulse { animation: pulseStar 3s ease-in-out infinite; }
+
+        /* Riscados e Aotações Feitas à Mão */
+        .doodle-text {
+            font-family: var(--font-hand);
+            font-size: 1.4rem;
+            color: var(--primary-blue);
+            position: absolute;
+            transform: rotate(-5deg);
+        }
+
+        /* =========================================
+           HERO SECTION
+           ========================================= */
+        #hero {
+            min-height: 100vh;
+            padding: 110px 20px 40px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            position: relative;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 320px;
+            position: relative;
+        }
+
+        .badge-header {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--secondary-black);
+            color: #ffffff;
+            font-family: var(--font-title);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            box-shadow: 3px 3px 0px var(--primary-blue);
+            transform: rotate(-1deg);
+        }
+
+        .hero-title {
+            font-size: 4.2rem;
+            line-height: 0.95;
+            font-family: var(--font-title);
+            color: var(--secondary-black);
+            text-shadow: 3px 3px 0px var(--primary-blue);
+            cursor: pointer;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        .info-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .info-box {
+            background: var(--bg-card);
+            border: 2px solid var(--secondary-black);
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 3px 3px 0px var(--secondary-black);
+            transition: transform 0.2s;
+            color: var(--dark-blue-text);
+        }
+
+        .info-box:hover {
+            transform: translate(-2px, -2px) rotate(1deg);
+            border-color: var(--primary-blue);
+        }
+
+        .quote-box {
+            margin-top: 25px;
+            background: #dbeafe;
+            color: #1e3a8a;
+            border: 2px dashed #1e3a8a;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-weight: 900;
+            font-style: italic;
+            display: inline-block;
+            box-shadow: 3px 3px 0px #1e3a8a;
+            transform: rotate(1deg);
+        }
+
+        /* AVATAR + ESTRELAS EM VOLTA (INSPIRADO NA IMAGEM 3) */
+        .hero-visual {
+            position: relative;
+            width: 330px;
+            height: 330px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .photo-container {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 6px solid var(--secondary-black);
+            overflow: hidden;
+            background: #cbd5e1;
+            z-index: 2;
+            position: relative;
+            box-shadow: 6px 6px 0px var(--primary-blue);
+            cursor: pointer;
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .vinyl-small {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(#111, #333, #111, #333, #111);
+            border: 3px solid var(--secondary-black);
+            z-index: 1;
+            animation: spinSlow 6s linear infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 4px 4px 0px var(--secondary-black);
+        }
+
+        .vinyl-small-center {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-blue);
+            border: 2px solid #ffffff;
+        }
+
+        .sushi-easter-egg {
+            position: absolute;
+            font-size: 3.5rem;
+            z-index: 10;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        /* =========================================
+           DIVISÓRIA FEITA À MÃO
+           ========================================= */
+        .zigzag-divider {
+            height: 20px;
+            width: 100%;
+            background: 
+                linear-gradient(135deg, var(--secondary-black) 25%, transparent 25%) -10px 0,
+                linear-gradient(225deg, var(--secondary-black) 25%, transparent 25%) -10px 0,
+                linear-gradient(315deg, var(--secondary-black) 25%, transparent 25%),
+                linear-gradient(45deg, var(--secondary-black) 25%, transparent 25%);
+            background-size: 20px 20px;
+            margin: 40px 0;
+        }
+
+        /* =========================================
+           SEÇÕES
+           ========================================= */
+        section {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .section-box {
+            background: var(--bg-card);
+            border: 3.5px solid var(--secondary-black);
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 8px 8px 0px var(--secondary-black);
+            position: relative;
+        }
+
+        .section-tag {
+            position: absolute;
+            top: -22px;
+            left: 30px;
+            background: var(--primary-blue);
+            color: #ffffff;
+            font-family: var(--font-title);
+            font-size: 2rem;
+            padding: 4px 20px;
+            border: 3px solid var(--secondary-black);
+            border-radius: 8px;
+            box-shadow: 4px 4px 0px var(--secondary-black);
+            transform: rotate(-1deg);
+        }
+
+        .sobre-content {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--dark-blue-text);
+        }
+
+        .sobre-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .chip {
+            background: #dbeafe;
+            border: 2px solid var(--dark-blue-text);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            box-shadow: 3px 3px 0px var(--dark-blue-text);
+            color: var(--dark-blue-text);
+        }
+
+        /* =========================================
+           MINHAS ENTREGAS (CARROSSEL)
+           ========================================= */
+        .carousel-wrapper {
+            display: flex;
+            overflow-x: auto;
+            gap: 25px;
+            padding: 25px 5px;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-blue) var(--court-bg);
+        }
+
+        .delivery-card {
+            flex: 0 0 310px;
+            scroll-snap-align: center;
+            background: var(--bg-card);
+            border: 3px solid var(--dark-blue-text);
+            border-radius: 12px;
+            padding: 25px 20px 20px 20px;
+            position: relative;
+            box-shadow: 6px 6px 0px var(--dark-blue-text);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .delivery-card::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 22px;
+            background: var(--tape-color);
+            border: 1px dashed var(--dark-blue-text);
+            z-index: 3;
+        }
+
+        .delivery-card:hover {
+            transform: translateY(-8px) rotate(1deg);
+            box-shadow: 10px 10px 0px var(--primary-blue);
+        }
+
+        .card-top-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary-blue);
+            color: #ffffff;
+            font-family: var(--font-title);
+            font-size: 1.1rem;
+            padding: 2px 10px;
+            border-radius: 6px;
+            border: 2px solid var(--dark-blue-text);
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-family: var(--font-title);
+            margin-top: 15px;
+            margin-bottom: 10px;
+            color: var(--dark-blue-text);
+        }
+
+        .card-date-badge {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e3a8a;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .card-text {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            margin-bottom: 20px;
+            color: #1e3a8a;
+        }
+
+        .card-button {
+            display: block;
+            text-align: center;
+            background: var(--dark-blue-text);
+            color: #ffffff;
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            padding: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.2s;
+            border: 2px solid var(--dark-blue-text);
+        }
+
+        .card-button:hover {
+            background: var(--primary-blue);
+        }
+
+        .delivery-card.em-breve {
+            opacity: 0.6;
+        }
+
+        /* =========================================
+           SEÇÃO MANIFESTO (CORRIGIDA - AZUL ESCURO LEGÍVEL)
+           ========================================= */
+        #manifesto-box {
+            background: #ffffff;
+            border: 4px solid var(--secondary-black);
+            border-radius: 20px;
+            padding: 45px;
+            box-shadow: 10px 10px 0px var(--primary-blue);
+            position: relative;
+        }
+
+        .manifesto-quote-large {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin: 25px 0;
+            line-height: 1.05;
+            text-transform: uppercase;
+            text-align: center;
+            text-shadow: 2px 2px 0px var(--secondary-black);
+        }
+
+        /* LETRAS DO MANIFESTO EM TOM AZUL ESCURO E BEM VISÍVEL */
+        .manifesto-p {
+            font-size: 1.15rem;
+            line-height: 1.85;
+            text-align: justify;
+            margin-bottom: 20px;
+            color: var(--dark-blue-text) !important; /* Azul escuro nítido */
+            font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+
+        /* =========================================
+           RODAPÉ
+           ========================================= */
+        footer {
+            background: var(--primary-blue);
+            color: #ffffff;
+            border-top: 4px solid var(--secondary-black);
+            padding: 50px 20px;
+            text-align: center;
+            margin-top: 60px;
+            position: relative;
+        }
+
+        footer h3 {
+            font-size: 2.8rem;
+            font-family: var(--font-title);
+            margin-bottom: 15px;
+        }
+
+        footer p {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .footer-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        /* =========================================
+           EFEITO SCROLL
+           ========================================= */
+        .scroll-reveal {
+            opacity: 0;
+            filter: blur(10px);
+            transform: translateY(25px);
+            transition: all 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
+
+        .confetti-dot {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            pointer-events: none;
+            z-index: 9999;
+            animation: confettiFall 1.2s ease-out forwards;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(350px) rotate(720deg); opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            #hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 100px;
+            }
+            .hero-title { font-size: 3.2rem; }
+            .info-grid { justify-content: center; }
+            .delivery-card { flex: 0 0 88%; }
+            nav ul { display: none; }
+            .manifesto-quote-large { font-size: 2.2rem; }
+            .section-box { padding: 25px 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- FUNDO DA QUADRA DE VÔLEI -->
+    <div class="court-background"></div>
+
+    <!-- NAVEGAÇÃO -->
+    <header>
+        <div class="logo-tag">DUDA MIYAKE ✦</div>
+        <nav>
+            <ul>
+                <li><a href="#sobre">Sobre Mim</a></li>
+                <li><a href="#entregas">Entregas</a></li>
+                <li><a href="#manifesto">Manifesto</a></li>
+            </ul>
+        </nav>
+        <button class="btn-pill" id="theme-btn">Modo Escuro</button>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main>
+
+        <!-- HERO SECTION -->
+        <section id="hero" class="scroll-reveal">
+            
+            <!-- ESTRELAS ESTILO CANVA DECORATIVAS FLUTUANTES (IMAGEM 2 & 3) -->
+            <!-- Estrela de 4 pontas azul (Estilo Imagem 3) -->
+            <svg class="sticker anim-pulse" style="top: 75px; left: -15px; width: 50px;" viewBox="0 0 100 100">
+                <path d="M50 0 C50 35, 65 50, 100 50 C65 50, 50 65, 50 100 C50 65, 35 50, 0 50 C35 50, 50 35, 50 0 Z" fill="none" stroke="#1D4ED8" stroke-width="8"/>
+            </svg>
+
+            <!-- Estrela Dupla Halftone / Y2K (Estilo Imagem 2) -->
+            <svg class="sticker anim-float-1" style="top: 40px; right: 5%; width: 55px;" viewBox="0 0 100 100">
+                <polygon points="50,5 64,36 98,36 70,57 81,91 50,70 19,91 30,57 2,36 36,36" fill="#1D4ED8" stroke="#0f172a" stroke-width="4"/>
+                <polygon points="50,20 59,40 80,40 63,52 70,73 50,60 30,73 37,52 20,40 41,40" fill="#ffffff"/>
+            </svg>
+
+            <!-- Estrela Cadente / Traço (Estilo Imagem 2) -->
+            <svg class="sticker anim-float-1" style="bottom: 15px; left: 35%; width: 70px;" viewBox="0 0 120 60">
+                <path d="M0 30 L40 30 M15 15 L40 30 M15 45 L40 30" stroke="#1D4ED8" stroke-width="6" stroke-linecap="round"/>
+                <polygon points="80,5 90,25 112,25 94,38 101,60 80,46 59,60 66,38 48,25 70,25" fill="#1D4ED8"/>
+            </svg>
+
+            <!-- LADO ESQUERDO: TEXTO -->
+            <div class="hero-text">
+                <div class="badge-header">⚡ PORTFÓLIO • MUNDO DO TRABALHO</div>
+                <h1 class="hero-title" id="name-click" title="Clique para comemorar!">EDUARDA MEGUMI<br>MIYAKE</h1>
+                <p class="hero-subtitle">Estudante de Informática, apaixonada por vôlei, arte e tecnologia.</p>
+
+                <div class="info-grid">
+                    <div class="info-box">📍 Varginha – MG</div>
+                    <div class="info-box">🎂 15 Anos</div>
+                    <div class="info-box">💻 Técnico em Informática</div>
+                    <div class="info-box">🏐 Líbero / Levantadora</div>
+                    <div class="info-box">🎨 Pintura & Jogos</div>
+                </div>
+
+                <div class="quote-box">
+                    "Stop caring, just live." ✦
+                </div>
+            </div>
+
+            <!-- LADO DIREITO: FOTO COM ESTRELAS EM VOLTA (EXATAMENTE COMO NA IMAGEM 3) -->
+            <div class="hero-visual" id="avatar-click">
+                
+                <!-- Estrela Azul Grande Superior Esquerda da Foto (Imagem 3) -->
+                <svg class="sticker anim-pulse" style="top: -15px; left: 10px; width: 55px; z-index: 10;" viewBox="0 0 100 100">
+                    <path d="M50 0 C50 35, 65 50, 100 50 C65 50, 50 65, 50 100 C50 65, 35 50, 0 50 C35 50, 50 35, 50 0 Z" fill="none" stroke="#1D4ED8" stroke-width="9"/>
+                </svg>
+
+                <!-- Estrela Azul Média Inferior Esquerda da Foto (Imagem 3) -->
+                <svg class="sticker anim-float-1" style="bottom: 10px; left: 5px; width: 45px; z-index: 10;" viewBox="0 0 100 100">
+                    <path d="M50 0 C50 35, 65 50, 100 50 C65 50, 50 65, 50 100 C50 65, 35 50, 0 50 C35 50, 50 35, 50 0 Z" fill="none" stroke="#1D4ED8" stroke-width="8"/>
+                </svg>
+
+                <!-- Estrela Pequena Direita (Imagem 3) -->
+                <svg class="sticker anim-pulse" style="top: 40px; right: -12px; width: 35px; z-index: 10;" viewBox="0 0 100 100">
+                    <path d="M50 0 C50 35, 65 50, 100 50 C65 50, 50 65, 50 100 C50 65, 35 50, 0 50 C35 50, 50 35, 50 0 Z" fill="#1D4ED8"/>
+                </svg>
+
+                <!-- Vinil Menor -->
+                <a href="https://youtu.be/EbVV9FDxM4c?list=RDEbVV9FDxM4c" target="_blank" rel="noopener noreferrer" class="vinyl-small" title="Ouvir: Imprevisto - Yago Oproprio" style="text-decoration: none; cursor: pointer;">
+                    <div class="vinyl-small-center"></div>
+                </a>
+                
+                <!-- Foto Principal -->
+                <div class="photo-container">
+                    <img src="c:\Users\EPN2NL220\Downloads\330021263.jpg" alt="Foto de Eduarda Megumi Miyake">
+                </div>
+
+                <span class="sushi-easter-egg" id="sushi-emoji">🍣</span>
+            </div>
+
+        </section>
+
+        <div class="zigzag-divider"></div>
+
+        <!-- SEÇÃO SOBRE MIM -->
+        <section id="sobre" class="scroll-reveal">
+            
+            <!-- Estrela Tribal/Y2K Decorativa (Imagem 2) -->
+            <svg class="sticker anim-float-1" style="top: -10px; right: 20px; width: 50px;" viewBox="0 0 100 100">
+                <path d="M50 0 L60 35 L95 25 L70 50 L95 75 L60 65 L50 100 L40 65 L5 75 L30 50 L5 25 L40 35 Z" fill="#0f172a"/>
+            </svg>
+
+            <div class="section-box">
+                <div class="section-tag">SOBRE MIM ✦</div>
+                
+                <div class="sobre-content">
+                    <p>Cresci imersa no mundo digital, apaixonada por jogos on-line, sem deixar de lado minha essência criativa entre tintas, pincéis e papel. Essa mistura também se reflete na minha facilidade com exatas e idiomas: sou ótima em matemática e estudo inglês desde cedo, o que me rendeu 965 pontos no TOEFL.</p>
+                    
+                    <p>Além das telas e da arte, encontrei no vôlei outra grande paixão, que pratico com dedicação desde o início de 2025. Comecei na SEMEL, e me mudei para o Broken Squad, e hoje tenho orgulho de defender a equipe do Variante, atuando como líbero e, quando necessário, como levantadora.</p>
+                </div>
+
+                <div class="sobre-chips">
+                    <div class="chip">🏐 Vôlei (Variante)</div>
+                    <div class="chip">🎮 Jogos On-line & Parkour</div>
+                    <div class="chip">🎨 Pintura & Arte</div>
+                    <div class="chip">🎓 Futura Ed. Física / Tech</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="zigzag-divider"></div>
+
+        <!-- SEÇÃO MINHAS ENTREGAS -->
+        <section id="entregas" class="scroll-reveal">
+            <div class="section-box">
+                <div class="section-tag">MINHAS ENTREGAS ✦</div>
+
+                <div class="carousel-wrapper">
+                    
+                    <!-- Card 1 -->
+                    <div class="delivery-card">
+                        <span class="card-top-tag">01 • OK</span>
+                        <div>
+                            <h3 class="card-title">Capa do Meu Álbum</h3>
+                            <span class="card-date-badge">📅 12/08/2026</span>
+                            <p class="card-text"><strong>O que aprendi:</strong> Expressar identidade visual, gosto musical (Imprevisto - Yago Oproprio) e referências pessoais graficamente.</p>
+                        </div>
+                        <a href="#" target="_blank" class="card-button">Acessar Pasta ➔</a>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="delivery-card">
+                        <span class="card-top-tag">02 • OK</span>
+                        <div>
+                            <h3 class="card-title">Dashboard Quem Sou Eu</h3>
+                            <span class="card-date-badge">📅 19/08/2026</span>
+                            <p class="card-text"><strong>O que aprendi:</strong> Estruturar informações pessoais, organizar dados sobre minhas paixões e criar painel interativo.</p>
+                        </div>
+                        <a href="#" target="_blank" class="card-button">Acessar Pasta ➔</a>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="delivery-card">
+                        <span class="card-top-tag">03 • OK</span>
+                        <div>
+                            <h3 class="card-title">Árvore das Profissões 2.0</h3>
+                            <span class="card-date-badge">📅 26/08/2026</span>
+                            <p class="card-text"><strong>O que aprendi:</strong> Mapear caminhos profissionais possíveis na Educação Física e no esporte combinado com tecnologia.</p>
+                        </div>
+                        <a href="#" target="_blank" class="card-button">Acessar Pasta ➔</a>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="delivery-card em-breve">
+                        <span class="card-top-tag">04 • BREVE</span>
+                        <div>
+                            <h3 class="card-title">Âncoras de Carreira</h3>
+                            <span class="card-date-badge">📅 Em breve</span>
+                            <p class="card-text"><strong>O que aprendi:</strong> [PREENCHER Em breve]</p>
+                        </div>
+                        <a href="#" class="card-button">Em breve</a>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="delivery-card em-breve">
+                        <span class="card-top-tag">05 • BREVE</span>
+                        <div>
+                            <h3 class="card-title">Manifesto</h3>
+                            <span class="card-date-badge">📅 Em breve</span>
+                            <p class="card-text"><strong>O que aprendi:</strong> [PREENCHER Em breve]</p>
+                        </div>
+                        <a href="#" class="card-button">Em breve</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <div class="zigzag-divider"></div>
+
+        <!-- SEÇÃO MANIFESTO (CORRIGIDO PARA AZUL ESCURO LEGÍVEL) -->
+        <section id="manifesto" class="scroll-reveal">
+            
+            <!-- Estrela Estilo Halftone no Canto Superior -->
+            <svg class="sticker anim-pulse" style="top: -20px; left: 10px; width: 60px; z-index: 10;" viewBox="0 0 100 100">
+                <path d="M50 0 C50 35, 65 50, 100 50 C65 50, 50 65, 50 100 C50 65, 35 50, 0 50 C35 50, 50 35, 50 0 Z" fill="#1D4ED8"/>
+            </svg>
+
+            <div id="manifesto-box" class="section-box">
+                <div class="section-tag">MANIFESTO ✦</div>
+
+                <!-- TEXTO COM A COR AZUL ESCURO DE ALTO CONTRASTE -->
+                <p class="manifesto-p">Não pertenço a uma única caixa. Sou a síntese perfeita entre a precisão lógica e a liberdade criativa, moldada por uma infância dividida entre o universo infinito dos jogos on-line e o toque tátil das tintas, papéis e pincéis. Para mim, a vida é uma tela em branco onde a matemática e a arte conversam fluentemente. A determinação que me levou aos 965 pontos no TOEFL é a mesma disciplina que aplico em cada cálculo, em cada tela e em cada conquista.</p>
+
+                <div class="manifesto-quote-large">
+                    ✦ A ARTE DO MOVIMENTO: DO PIXEL À QUADRA ✦
+                </div>
+
+                <p class="manifesto-p">Minha mente é estratégica, mas meu espírito é puro movimento. Nas quadras de vôlei, levo essa mesma visão: a leitura tática de quem enxerga o jogo como um tabuleiro, aliada à agilidade e entrega total de quem joga pela equipe. Seja defendendo a quadra como líbero ou orquestrando o ataque como levantadora, carrego a bagagem da minha trajetória — da SEMEL, hoje Atlas Hawks, ao orgulho de vestir a camisa do Variante. Jogar, criar, calcular e vencer: este é o meu manifesto.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <h3>BORA CONVERSAR? ✦</h3>
+        <p>📧 Email: wint3r.tae@gmail.com</p>
+        <p>📸 Instagram: @megumi.myk</p>
+
+        <div class="footer-buttons">
+            <a href="https://github.com/d-miyake" target="_blank" class="btn-pill" style="text-decoration: none;">GitHub: d-miyake</a>
+        </div>
+    </footer>
+
+    <!-- INTERAÇÕES JAVASCRIPT -->
+    <script>
+        // ALTERNAR TEMA
+        const themeBtn = document.getElementById('theme-btn');
+        themeBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                themeBtn.textContent = 'Modo Escuro';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeBtn.textContent = 'Modo Claro';
+            }
+        });
+
+        // REVELAÇÃO NO SCROLL
+        const reveals = document.querySelectorAll('.scroll-reveal');
+        
+        function revealOnScroll() {
+            const windowHeight = window.innerHeight;
+            reveals.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 80) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // CONFETE AO CLICAR NO NOME
+        const nameElement = document.getElementById('name-click');
+        nameElement.addEventListener('click', (e) => {
+            for (let i = 0; i < 35; i++) {
+                createConfetti(e.clientX, e.clientY);
+            }
+        });
+
+        function createConfetti(x, y) {
+            const dot = document.createElement('div');
+            dot.classList.add('confetti-dot');
+            
+            const offsetX = (Math.random() - 0.5) * 250;
+            const offsetY = (Math.random() - 0.5) * 150;
+            
+            dot.style.left = (x + offsetX) + 'px';
+            dot.style.top = (y + offsetY) + 'px';
+            
+            const colors = ['#1D4ED8', '#0f172a', '#2563eb', '#ffffff'];
+            dot.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            document.body.appendChild(dot);
+            setTimeout(() => dot.remove(), 1200);
+        }
+
+        // EASTER EGG
+        const avatarClick = document.getElementById('avatar-click');
+        const sushiEmoji = document.getElementById('sushi-emoji');
+
+        avatarClick.addEventListener('click', () => {
+            sushiEmoji.style.opacity = '1';
+            sushiEmoji.style.transform = 'scale(1.3) rotate(15deg)';
+            sushiEmoji.style.top = (Math.random() * 50 + 20) + '%';
+            sushiEmoji.style.left = (Math.random() * 50 + 20) + '%';
+
+            setTimeout(() => {
+                sushiEmoji.style.opacity = '0';
+                sushiEmoji.style.transform = 'scale(1) rotate(0deg)';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
